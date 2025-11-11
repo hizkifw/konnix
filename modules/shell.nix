@@ -3,6 +3,10 @@
 {
   environment.shells = with pkgs; [ zsh ];
 
+  environment.shellAliases = {
+    gpoh = "git push -u origin HEAD";
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
