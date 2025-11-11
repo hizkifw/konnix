@@ -20,8 +20,20 @@
     # Base dev tools
     {
       environment.systemPackages = with pkgs; [
-        git
       ];
+
+      programs.git = {
+        enable = true;
+        lfs.enable = true;
+        config = {
+          init.defaultBranch = "main";
+        };
+      };
+
+      programs.direnv = {
+        enable = true;
+        enableZshIntegration = true;
+      };
     }
 
     # docker
