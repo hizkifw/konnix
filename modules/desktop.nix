@@ -16,6 +16,7 @@
     communications.enable = lib.mkEnableOption "communications";
     multimedia.enable = lib.mkEnableOption "multimedia";
     gaming.enable = lib.mkEnableOption "gaming";
+    gaming.vr.enable = lib.mkEnableOption "virtual reality";
   };
 
   config = lib.mkIf config.konnix.desktop.enable (lib.mkMerge [
@@ -149,6 +150,8 @@
           obs-backgroundremoval
         ];
       };
+
+      # environment.systemPackages = with pkgs; [
     })
 
     # Gaming
@@ -158,8 +161,20 @@
         steam.extraCompatPackages = with pkgs; [
           proton-ge-bin
         ];
+      };
+    })
 
-        alvr.enable = true;
+    # Gaming/VR
+    (lib.mkIf config.konnix.desktop.gaming.vr.enable {
+      environment.systemPackages = with pkgs; [
+        wlx-overlay-s
+      ];
+
+      services.wivrn = {
+        enable = true;
+        highPriority = true;
+        defaultRuntime = true;
+        steam.importOXRRuntimes = true;
       };
     })
   ]);
