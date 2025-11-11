@@ -21,7 +21,13 @@
 
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./hosts/desktop/configuration.nix ];
+        modules = [
+          ./modules/common.nix
+          ./modules/shell.nix
+          ./modules/development.nix
+          ./modules/desktop.nix
+          ./hosts/desktop/configuration.nix
+        ];
       };
     };
   };

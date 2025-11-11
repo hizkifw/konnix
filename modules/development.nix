@@ -11,6 +11,8 @@
     };
 
     rust.enable = lib.mkEnableOption "rust" // { default = true; };
+    dotnet.enable = lib.mkEnableOption "dotnet" // { default = true; };
+
     tmux.enable = lib.mkEnableOption "tmux" // { default = true; };
   };
 
@@ -22,18 +24,35 @@
       ];
     }
 
-    # Docker
+    # docker
     (lib.mkIf config.konnix.development.docker.enable {
       virtualisation.docker.enable = true;
       users.users.${config.konnix.development.docker.username}.extraGroups = [ "docker" ];
     })
 
-    # Rust
+    # rust
     (lib.mkIf config.konnix.development.rust.enable {
       environment.systemPackages = with pkgs; [ rustc cargo rust-analyzer ];
     })
 
-    # Tmux
+    # dotnet
+    (lib.mkIf config.konnix.development.dotnet.enable {
+      environment.systemPackages = with pkgs; [
+        (
+          with dotnetCorePackages;
+          combinePackages [
+            sdk_8_0
+            sdk_9_0
+            sdk_10_0
+            aspnetcore_8_0
+            aspnetcore_9_0
+            aspnetcore_10_0
+          ]
+        )
+      ];
+    })
+
+    # tmux
     (lib.mkIf config.konnix.development.tmux.enable {
       programs.tmux = {
         enable = true;
