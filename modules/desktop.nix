@@ -17,6 +17,7 @@
     multimedia.enable = lib.mkEnableOption "multimedia";
     gaming.enable = lib.mkEnableOption "gaming";
     gaming.vr.enable = lib.mkEnableOption "virtual reality";
+    cad.enable = lib.mkEnableOption "CAD";
   };
 
   config = lib.mkIf config.konnix.desktop.enable (lib.mkMerge [
@@ -176,6 +177,15 @@
         defaultRuntime = true;
         steam.importOXRRuntimes = true;
       };
+    })
+
+    # CAD
+    (lib.mkIf config.konnix.desktop.cad.enable {
+      environment.systemPackages = with pkgs; [
+        kicad
+        kikit
+        freecad-wayland
+      ];
     })
   ]);
 }
