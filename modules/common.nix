@@ -14,6 +14,13 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    configure.customRC = ''
+      set shiftwidth=2
+      set softtabstop=2
+      set tabstop=2
+      set expandtab
+      set smarttab
+    '';
   };
 
   # Environment
