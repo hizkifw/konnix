@@ -4,16 +4,22 @@
   # Common packages for all systems
   environment.systemPackages = with pkgs; [
     git
-    vim-full
     htop
     curl
     wget
   ];
 
+  # Editor
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+  };
+
   # Environment
   environment.variables = {
-    EDITOR = "vim";
-    VISUAL = "vim";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 
   # Common settings
