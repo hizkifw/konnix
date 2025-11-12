@@ -38,7 +38,13 @@
       security.pam.services.greetd.enableGnomeKeyring = true;
 
       # Browser
-      programs.chromium.enable = true;
+      programs.chromium = {
+        enable = true;
+        extensions = [
+          "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+          "ddkjiahejlhfcafbddmgiahcphecmpfh" # uBO Lite
+        ];
+      };
 
       # Fonts
       fonts.packages = with pkgs; [
